@@ -57,9 +57,11 @@ describe('promise', function () {
     it('from constructor works', function (done) {
       var called = 0;
 
-      var promise = new Promise(function (err) {
-        assert.ok(err instanceof Error);
-        called++;
+      var promise = new Promise(function (resolve, reject) {
+        reject(function (err) {
+          assert.ok(err instanceof Error);
+          called++;
+        })
       });
 
       promise.reject(new Error('dawg'));
@@ -125,23 +127,27 @@ describe('promise', function () {
   describe('return values', function () {
     it('on()', function (done) {
       var promise = new Promise();
-      assert.ok(promise.on('jump', function () {}) instanceof Promise);
+      assert.ok(promise.on('jump', function () {
+      }) instanceof Promise);
       done()
     });
 
     it('onFulfill()', function (done) {
       var promise = new Promise();
-      assert.ok(promise.onFulfill(function () {}) instanceof Promise);
+      assert.ok(promise.onFulfill(function () {
+      }) instanceof Promise);
       done();
     });
     it('onReject()', function (done) {
       var promise = new Promise();
-      assert.ok(promise.onReject(function () {}) instanceof Promise);
+      assert.ok(promise.onReject(function () {
+      }) instanceof Promise);
       done();
     });
     it('onResolve()', function (done) {
       var promise = new Promise();
-      assert.ok(promise.onResolve(function () {}) instanceof Promise);
+      assert.ok(promise.onResolve(function () {
+      }) instanceof Promise);
       done();
     })
   });
@@ -149,9 +155,11 @@ describe('promise', function () {
   describe('casting errors', function () {
     describe('reject()', function () {
       it('does not cast arguments to Error', function (done) {
-        var p = new Promise(function (err) {
-          assert.equal(3, err);
-          done();
+        var p = new Promise(function (resolve, reject) {
+            reject(function (err) {
+              assert.equal(3, err);
+              done();
+          });
         });
 
         p.reject(3);
@@ -164,7 +172,9 @@ describe('promise', function () {
       it('should not catch returned promise fulfillments', function (done) {
         var errorSentinal
           , p = new Promise;
-        p.then(function () { throw errorSentinal = new Error("boo!") });
+        p.then(function () {
+          throw errorSentinal = new Error("boo!")
+        });
 
         p.fulfill();
         done();
@@ -174,7 +184,9 @@ describe('promise', function () {
       it('should not catch returned promise fulfillments even async', function (done) {
         var errorSentinal
           , p = new Promise;
-        p.then(function () { throw errorSentinal = new Error("boo!") });
+        p.then(function () {
+          throw errorSentinal = new Error("boo!")
+        });
 
         setTimeout(function () {
           p.fulfill();
@@ -204,7 +216,9 @@ describe('promise', function () {
 
           p.fulfill();
         });
-        overTimeout = setTimeout(function () { done(new Error('error was swallowed')); }, 10);
+        overTimeout = setTimeout(function () {
+          done(new Error('error was swallowed'));
+        }, 10);
       });
 
 
@@ -227,9 +241,13 @@ describe('promise', function () {
           });
           p2.end();
 
-          setTimeout(function () {p.fulfill();}, 10);
+          setTimeout(function () {
+            p.fulfill();
+          }, 10);
         });
-        overTimeout = setTimeout(function () { done(new Error('error was swallowed')); }, 20);
+        overTimeout = setTimeout(function () {
+          done(new Error('error was swallowed'));
+        }, 20);
       });
 
 
@@ -249,9 +267,13 @@ describe('promise', function () {
             done()
           });
 
-          setTimeout(function () {p.fulfill();}, 10);
+          setTimeout(function () {
+            p.fulfill();
+          }, 10);
         });
-        overTimeout = setTimeout(function () { done(new Error('error was swallowed')); }, 20);
+        overTimeout = setTimeout(function () {
+          done(new Error('error was swallowed'));
+        }, 20);
       });
 
     });
@@ -377,10 +399,11 @@ describe('promise', function () {
     it('should propagate fulfillment', function (done) {
       var varSentinel = {a: 'a'};
       var p1 = new Promise;
-      p1.chain(new Promise(function (err, doc) {
+      var p2 = new Promise(function (err, doc) {
         assert.equal(doc, varSentinel);
         done();
-      }));
+      });
+      p1.chain(p2);
       p1.fulfill(varSentinel);
     });
 
@@ -507,7 +530,9 @@ describe('promise', function () {
       var run = 0;
       var l1 = function (ser, par) {
         run++;
-        setTimeout(function () {ser();}, 200);
+        setTimeout(function () {
+          ser();
+        }, 200);
         par();
       };
       Promise.hook([l1, l1, l1]).then(function () {
@@ -523,7 +548,9 @@ describe('promise', function () {
       var l1 = function (ser, par) {
         run++;
         ser();
-        setTimeout(function () {par();}, 200);
+        setTimeout(function () {
+          par();
+        }, 200);
       };
       Promise.hook([l1, l1, l1]).then(function () {
         assert(run, 3);

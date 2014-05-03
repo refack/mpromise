@@ -5,13 +5,14 @@
     "tag": "beta"
   },
   "description": "Promises A+ conformant implementation",
-  "main": "lib/promise.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "mocha"
   },
   "devDependencies": {
-    "promises-aplus-tests": "2.0.3",
-    "mocha": "1.17.1"
+    "mocha": "",
+    "promises-aplus-tests": "",
+    "trace": ""
   },
   "repository": {
     "type": "git",
@@ -25,5 +26,6 @@
     "plus"
   ],
   "author": "Aaron Heckmann <aaron.heckmann+github@gmail.com>",
+  "contributors": ["Refael Ackermann <refack@gmail.com>"],
   "license": "MIT"
 }
