@@ -395,53 +395,6 @@ describe('promise', function () {
   });
 
 
-  describe('chain', function () {
-    it('should propagate fulfillment', function (done) {
-      var varSentinel = {a: 'a'};
-      var p1 = new Promise;
-      var p2 = new Promise(function (err, doc) {
-        assert.equal(doc, varSentinel);
-        done();
-      });
-      p1.chain(p2);
-      p1.fulfill(varSentinel);
-    });
-
-
-    it('should propagate rejection', function (done) {
-      var e = new Error("gaga");
-      var p1 = new Promise;
-      p1.chain(new Promise(function (err) {
-        assert.equal(err, e);
-        done();
-      }));
-      p1.reject(e);
-    });
-
-
-    it('should propagate resolution err', function (done) {
-      var e = new Error("gaga");
-      var p1 = new Promise;
-      p1.chain(new Promise(function (err) {
-        assert.equal(err, e);
-        done();
-      }));
-      p1.resolve(e);
-    });
-
-
-    it('should propagate resolution val', function (done) {
-      var varSentinel = {a: 'a'};
-      var p1 = new Promise;
-      p1.chain(new Promise(function (err, val) {
-        assert.equal(val, varSentinel);
-        done();
-      }));
-      p1.resolve(null, varSentinel);
-    })
-  });
-
-
   describe("all", function () {
     it("works", function (done) {
       var count = 0;
