@@ -168,60 +168,60 @@ function assertAsyncDone(iteration) {
   assertAsyncRan()
 })();
 
-(function() {
-  var p1 = Promise.accept(5)
-  var p2 = Promise.accept(p1)
-  var p3 = Promise.accept(p2)
-  p3.chain(function(x) { return x }, assertUnreachable).chain(
-    function(x) { assertAsync(x === p1, "resolved/chain/chain") },
-    assertUnreachable
-  )
-  assertAsyncRan()
-})();
-
-(function() {
-  var p1 = Promise.accept(5)
-  var p2 = Promise.accept(p1)
-  var p3 = Promise.accept(p2)
-  p3.chain(function(x) { return x }, assertUnreachable).then(
-    function(x) { assertAsync(x === 5, "resolved/chain/then") },
-    assertUnreachable
-  )
-  assertAsyncRan()
-})();
-
-(function() {
-  var p1 = Promise.accept(5)
-  var p2 = Promise.accept(p1)
-  var p3 = Promise.accept(p2)
-  p3.chain(function(x) { return 6 }, assertUnreachable).chain(
-    function(x) { assertAsync(x === 6, "resolved/chain/chain2") },
-    assertUnreachable
-  )
-  assertAsyncRan()
-})();
-
-(function() {
-  var p1 = Promise.accept(5)
-  var p2 = Promise.accept(p1)
-  var p3 = Promise.accept(p2)
-  p3.chain(function(x) { return 6 }, assertUnreachable).then(
-    function(x) { assertAsync(x === 6, "resolved/chain/then2") },
-    assertUnreachable
-  )
-  assertAsyncRan()
-})();
-
-(function() {
-  var p1 = Promise.accept(5)
-  var p2 = Promise.accept(p1)
-  var p3 = Promise.accept(p2)
-  p3.then(function(x) { return x + 1 }, assertUnreachable).chain(
-    function(x) { assertAsync(x === 6, "resolved/then/chain") },
-    assertUnreachable
-  )
-  assertAsyncRan()
-})();
+//(function() {
+//  var p1 = Promise.accept(5)
+//  var p2 = Promise.accept(p1)
+//  var p3 = Promise.accept(p2)
+//  p3.chain(function(x) { return x }, assertUnreachable).chain(
+//    function(x) { assertAsync(x === p1, "resolved/chain/chain") },
+//    assertUnreachable
+//  )
+//  assertAsyncRan()
+//})();
+//
+//(function() {
+//  var p1 = Promise.accept(5)
+//  var p2 = Promise.accept(p1)
+//  var p3 = Promise.accept(p2)
+//  p3.chain(function(x) { return x }, assertUnreachable).then(
+//    function(x) { assertAsync(x === 5, "resolved/chain/then") },
+//    assertUnreachable
+//  )
+//  assertAsyncRan()
+//})();
+//
+//(function() {
+//  var p1 = Promise.accept(5)
+//  var p2 = Promise.accept(p1)
+//  var p3 = Promise.accept(p2)
+//  p3.chain(function(x) { return 6 }, assertUnreachable).chain(
+//    function(x) { assertAsync(x === 6, "resolved/chain/chain2") },
+//    assertUnreachable
+//  )
+//  assertAsyncRan()
+//})();
+//
+//(function() {
+//  var p1 = Promise.accept(5)
+//  var p2 = Promise.accept(p1)
+//  var p3 = Promise.accept(p2)
+//  p3.chain(function(x) { return 6 }, assertUnreachable).then(
+//    function(x) { assertAsync(x === 6, "resolved/chain/then2") },
+//    assertUnreachable
+//  )
+//  assertAsyncRan()
+//})();
+//
+//(function() {
+//  var p1 = Promise.accept(5)
+//  var p2 = Promise.accept(p1)
+//  var p3 = Promise.accept(p2)
+//  p3.then(function(x) { return x + 1 }, assertUnreachable).chain(
+//    function(x) { assertAsync(x === 6, "resolved/then/chain") },
+//    assertUnreachable
+//  )
+//  assertAsyncRan()
+//})();
 
 (function() {
   var p1 = Promise.accept(5)

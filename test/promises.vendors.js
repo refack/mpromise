@@ -1,4 +1,6 @@
 "use strict";
+var assert = require('assert');
+
 describe("vendors tests", function () {
   describe("V8 es6 test", function () {
     let vm = require('vm');
